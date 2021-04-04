@@ -3,6 +3,7 @@
 pragma solidity >=0.5.11 <0.7.0;
 
 contract MappingsStructExample {
+    
     struct Payment {
     uint amount;
     uint timestamp;
@@ -12,10 +13,10 @@ contract MappingsStructExample {
     uint totalBalance;
     uint numPayments;
     
-    mapping(uint => Payment) public payments;
+    mapping(uint => Payment) payments;
     }
     
-    mapping(address => uint) public balanceReceived;
+    mapping(address => Balance) public balanceReceived;
     
     function getBalance() public view returns(uint){
         return address(this).balance;
@@ -23,7 +24,10 @@ contract MappingsStructExample {
     }
     
     function sendMoney() public payable{
-        balanceReceived[msg.sender] += msg.value;
+        balanceReceived[msg.sender].totalBalance += msg.value;
+        Payment memory payment = Payment(msg.value, now);
+        balanceReceived[msg.sender].payments[balanceReceived[msg.sender].numPayments] = payment;
+        balanceReceived[msg.sender].numPayments++;
         
     }
     
@@ -41,4 +45,5 @@ contract MappingsStructExample {
         
     }
 }
+
 
