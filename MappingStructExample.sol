@@ -3,6 +3,17 @@
 pragma solidity >=0.5.11 <0.7.0;
 
 contract MappingsStructExample {
+    struct Payment {
+    uint amount;
+    uint timestamp;
+    }
+    
+    struct Balance {
+    uint totalBalance;
+    uint numPayments;
+    
+    mapping(uint => Payment) public payments;
+    }
     
     mapping(address => uint) public balanceReceived;
     
